@@ -29,7 +29,13 @@ else()
     message(STATUS "Using local ${LIB1}")
 endif()
 
-add_executable(TowerDefRedone main.cpp)
+add_executable(TowerDefRedone main.cpp
+        Tile.h
+        Tile.cpp
+        GameGrid.h
+        GameGrid.cpp
+        Pathfinding.h
+        Pathfinding.cpp)
 
 # set the include directory
 target_include_directories(TowerDefRedone PRIVATE ${raylib_INCLUDE_DIRS})

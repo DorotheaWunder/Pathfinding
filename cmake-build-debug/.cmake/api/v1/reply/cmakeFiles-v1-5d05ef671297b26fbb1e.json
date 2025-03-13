@@ -232,26 +232,6 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "cmake-build-debug/CMakeFiles/fc-tmp/raylib/download.cmake"
-		},
-		{
-			"isGenerated" : true,
-			"path" : "cmake-build-debug/CMakeFiles/fc-tmp/raylib/raylib-gitclone.cmake"
-		},
-		{
-			"isGenerated" : true,
-			"path" : "cmake-build-debug/CMakeFiles/fc-tmp/raylib/update.cmake"
-		},
-		{
-			"isGenerated" : true,
-			"path" : "cmake-build-debug/CMakeFiles/fc-tmp/raylib/raylib-gitupdate.cmake"
-		},
-		{
-			"isGenerated" : true,
-			"path" : "cmake-build-debug/CMakeFiles/fc-tmp/raylib/patch.cmake"
-		},
-		{
-			"isGenerated" : true,
 			"path" : "cmake-build-debug/_deps/raylib-src/CMakeLists.txt"
 		},
 		{
