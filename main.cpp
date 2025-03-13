@@ -24,22 +24,35 @@ int main()
 
         Tile* clickedTile = grid.GetTilePos(row,col);
 
+
+
+
+
         if (clickedTile)
         {
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
-                if (goalTile) goalTile->terrainType = GRASS;
+                if (goalTile)
+                {
+                    goalTile->terrainType = GRASS;
+                    goalTile->tileColor = terrainColors[GRASS];
+                }
+
                 clickedTile->terrainType = GOAL;
+                clickedTile->tileColor = terrainColors[GOAL];
                 goalTile = clickedTile;
-                //ClearBackground(GREEN);
             }
             else if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
             {
                 clickedTile->terrainType = WATER;
+                clickedTile->tileColor = terrainColors[WATER];
                 clickedTile->isWalkable = false;
-                //ClearBackground(BLUE);
             }
         }
+
+
+
+
 
         BeginDrawing();
 

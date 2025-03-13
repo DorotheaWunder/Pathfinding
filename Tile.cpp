@@ -33,7 +33,7 @@ void Tile::WalkableStatus()
 
 void Tile::Draw()
 {
-    tileColor = terrainColors[terrainType]; //---might be deactivated for BFS
+    //tileColor = terrainColors[terrainType]; //---might be deactivated for BFS
     DrawRectangle(position.x, position.y, SIZE, SIZE, tileColor);
     DrawRectangleLines(position.x, position.y, SIZE, SIZE, BLACK);
 }
