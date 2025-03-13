@@ -10,6 +10,7 @@ public:
     int width, height;
     void InitializeGrid();
     void DrawGrid();
+    void ResetTiles();
 
     Tile* GetTilePos(int row, int col);
 

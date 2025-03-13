@@ -33,6 +33,21 @@ void Grid::DrawGrid()
     }
 }
 
+void Grid::ResetTiles()
+{
+    for (int row = 0; row < height; row++)
+    {
+        for (int col = 0; col < width; col++)
+        {
+            Tile& tile = grid[row][col];
+            tile.wasVisited = false;
+            tile.vectorDirection = nullptr;
+            tile.distanceFromGoal = -1;
+            tile.tileColor = terrainColors[tile.terrainType];
+        }
+    }
+}
+
 
 Tile* Grid::GetTilePos(int row, int col)
 {

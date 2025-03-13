@@ -51,11 +51,11 @@ int main()
 
         if (IsKeyPressed(KEY_SPACE))
         {
+            grid.ResetTiles();
             Tile* startTile = grid.GetTilePos(0, 0);
             if (startTile && goalTile)
             {
                 BFS(grid, startTile, goalTile);
-                ReconstructPath(startTile, goalTile);
             }
         }
 
