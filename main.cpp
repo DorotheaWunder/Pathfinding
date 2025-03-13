@@ -16,6 +16,8 @@ int main()
     Tile* goalTile = nullptr;
 
     while (!WindowShouldClose()) {
+
+        BeginDrawing();
         ClearBackground(BLACK);
 
         Vector2 mousePos = GetMousePosition();
@@ -23,9 +25,6 @@ int main()
         int col = mousePos.x / Tile::SIZE;
 
         Tile* clickedTile = grid.GetTilePos(row,col);
-
-
-
 
 
         if (clickedTile)
@@ -50,12 +49,14 @@ int main()
             }
         }
 
-
-
-
-
-        BeginDrawing();
-
+        if (IsKeyPressed(KEY_SPACE))
+        {
+            Tile* startTile = grid.GetTilePos(0, 0);
+            if (startTile && goalTile)
+            {
+                BFS(grid, startTile, goalTile);
+            }
+        }
 
         grid.DrawGrid();
 

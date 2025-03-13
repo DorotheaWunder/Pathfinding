@@ -2,6 +2,7 @@
 # include "tile.h"
 # include "gamegrid.h"
 # include <queue>
+# include <iostream>
 # include <algorithm>
 
 bool IsWalkable(Tile* tile)
@@ -107,6 +108,7 @@ std::vector<Tile*> BacktrackPath(Tile* startPos, Tile* goalPos)
 
 void BFS(Grid& grid, Tile* startTile, Tile* goalTile)
 {
+    std::cout << "--> Algorithm Start " << std::endl;
     if (!startTile || !goalTile || !IsValid(goalTile)) return;
 
     std::queue<Tile*> frontier;
@@ -118,18 +120,28 @@ void BFS(Grid& grid, Tile* startTile, Tile* goalTile)
 
     WaitTime(0.7);
 
+    std::cout << "--> before while-loop " << std::endl;
     while (!frontier.empty())
     {
+        std::cout << "--> INSIDE while loop " << std::endl;
         Tile* current = frontier.front();
         frontier.pop();
+
+        if (current == goalTile)
+        {
+            std::cout << "--> GOAL tile reached, exiting BFS loop." << std::endl;
+            break;
+        }
 
         std::vector<Tile*> neighbors = GetNeighbors(current, grid);
         WaitTime(0.7);
 
         for (Tile* neighbor : neighbors)
         {
+            std::cout << "--> Neighbor check" << std::endl;
             if (IsValid(neighbor))
             {
+                std::cout << "--> valid neighbors added to frontier " << std::endl;
                 AddToFrontier(frontier, neighbor);
                 neighbor->vectorDirection = current;
                 neighbor->distanceFromGoal = current->distanceFromGoal + 1;
