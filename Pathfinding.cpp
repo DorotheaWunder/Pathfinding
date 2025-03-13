@@ -106,49 +106,92 @@ std::vector<Tile*> BacktrackPath(Tile* startPos, Tile* goalPos)
     path;
 }
 
+// void BFS(Grid& grid, Tile* startTile, Tile* goalTile)
+// {
+//     std::cout << "--> Algorithm Start " << std::endl;
+//     if (!startTile || !goalTile || !IsValid(goalTile))
+//         return;
+//
+//     std::queue<Tile*> frontier;
+//     frontier.push(goalTile);
+//     MarkVisited(goalTile);
+//     goalTile->distanceFromGoal = 0;
+//     goalTile->tileColor = RED;  // Goal tile
+//     startTile->tileColor = GRAY; // Start tile
+//
+//     WaitTime(0.2); // For visualization; remove or reduce for testing
+//
+//     std::cout << "--> before while-loop " << std::endl;
+//     while (!frontier.empty())
+//     {
+//         std::cout << "--> INSIDE while loop " << std::endl;
+//         Tile* current = frontier.front();
+//         frontier.pop();
+//
+//         // Terminate when the start tile is reached.
+//         if (current == startTile)
+//         {
+//             std::cout << "--> Start tile reached, exiting BFS loop." << std::endl;
+//             break;
+//         }
+//
+//         std::vector<Tile*> neighbors = GetNeighbors(current, grid);
+//         WaitTime(0.2);
+//
+//         for (Tile* neighbor : neighbors)
+//         {
+//             std::cout << "--> Neighbor check" << std::endl;
+//             if (IsValid(neighbor))
+//             {
+//                 std::cout << "--> Valid neighbor added to frontier" << std::endl;
+//                 AddToFrontier(frontier, neighbor);
+//                 neighbor->vectorDirection = current;
+//                 neighbor->distanceFromGoal = current->distanceFromGoal + 1;
+//                 WaitTime(0.2);
+//             }
+//         }
+//     }
+// }
+
 void BFS(Grid& grid, Tile* startTile, Tile* goalTile)
 {
     std::cout << "--> Algorithm Start " << std::endl;
-    if (!startTile || !goalTile || !IsValid(goalTile)) return;
+    if (!startTile || !goalTile || !IsValid(goalTile))
+        return;
 
     std::queue<Tile*> frontier;
     frontier.push(goalTile);
     MarkVisited(goalTile);
     goalTile->distanceFromGoal = 0;
-    goalTile->tileColor = RED;
-    startTile->tileColor = GRAY;
+    goalTile->tileColor = RED;  // Goal tile
+    startTile->tileColor = GRAY; // Start tile
 
-    WaitTime(0.7);
-
-    std::cout << "--> before while-loop " << std::endl;
     while (!frontier.empty())
     {
         std::cout << "--> INSIDE while loop " << std::endl;
         Tile* current = frontier.front();
         frontier.pop();
 
-        if (current == goalTile)
+
+        if (current == startTile)
         {
-            std::cout << "--> GOAL tile reached, exiting BFS loop." << std::endl;
+            std::cout << "--> Start tile reached, exiting BFS loop." << std::endl;
             break;
         }
 
         std::vector<Tile*> neighbors = GetNeighbors(current, grid);
-        WaitTime(0.7);
-
         for (Tile* neighbor : neighbors)
         {
             std::cout << "--> Neighbor check" << std::endl;
             if (IsValid(neighbor))
             {
-                std::cout << "--> valid neighbors added to frontier " << std::endl;
+                std::cout << "--> Valid neighbor added to frontier" << std::endl;
                 AddToFrontier(frontier, neighbor);
                 neighbor->vectorDirection = current;
                 neighbor->distanceFromGoal = current->distanceFromGoal + 1;
-                WaitTime(0.7);
+
             }
         }
     }
 }
-
 

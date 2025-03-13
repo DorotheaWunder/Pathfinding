@@ -55,6 +55,7 @@ int main()
             if (startTile && goalTile)
             {
                 BFS(grid, startTile, goalTile);
+                ReconstructPath(startTile, goalTile);
             }
         }
 
