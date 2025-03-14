@@ -3,6 +3,8 @@
 #include "Tile.h"
 #include "GameGrid.h"
 #include "Pathfinding.h"
+#include "Controls.h"
+#include "Enemy.h"
 
 
 int main()
@@ -15,51 +17,22 @@ int main()
     Grid grid(20,20);
     Tile* goalTile = nullptr;
 
+    Tile* startTile = grid.GetTilePos(0, 0);
+    Enemy enemy(startTile);
+
     while (!WindowShouldClose()) {
 
         BeginDrawing();
         ClearBackground(BLACK);
 
-        Vector2 mousePos = GetMousePosition();
-        int row = mousePos.y / Tile::SIZE;
-        int col = mousePos.x / Tile::SIZE;
 
-        Tile* clickedTile = grid.GetTilePos(row,col);
+        MouseClick(grid, goalTile);
+        KeyPress(grid, startTile, goalTile, enemy);
 
-
-        if (clickedTile)
-        {
-            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-            {
-                if (goalTile)
-                {
-                    goalTile->terrainType = GRASS;
-                    goalTile->tileColor = terrainColors[GRASS];
-                }
-
-                clickedTile->terrainType = GOAL;
-                clickedTile->tileColor = terrainColors[GOAL];
-                goalTile = clickedTile;
-            }
-            else if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
-            {
-                clickedTile->terrainType = WATER;
-                clickedTile->tileColor = terrainColors[WATER];
-                clickedTile->isWalkable = false;
-            }
-        }
-
-        if (IsKeyPressed(KEY_SPACE))
-        {
-            grid.ResetTiles();
-            Tile* startTile = grid.GetTilePos(0, 0);
-            if (startTile && goalTile)
-            {
-                BFS(grid, startTile, goalTile);
-            }
-        }
+        enemy.MoveConstantly();
 
         grid.DrawGrid();
+        enemy.Draw();
 
         EndDrawing();
     }

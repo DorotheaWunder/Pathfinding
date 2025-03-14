@@ -35,7 +35,11 @@ add_executable(TowerDefRedone main.cpp
         GameGrid.h
         GameGrid.cpp
         Pathfinding.h
-        Pathfinding.cpp)
+        Pathfinding.cpp
+        Enemy.h
+        Enemy.cpp
+        Controls.h
+        Controls.cpp)
 
 # set the include directory
 target_include_directories(TowerDefRedone PRIVATE ${raylib_INCLUDE_DIRS})

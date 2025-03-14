@@ -38,5 +38,3 @@ void Tile::Draw()
     DrawRectangleLines(position.x, position.y, SIZE, SIZE, BLACK);
 }
 
-
-//tile change color
