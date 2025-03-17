@@ -17,7 +17,7 @@ int main()
     Grid grid(20,20);
     Tile* goalTile = nullptr;
 
-    Tile* startTile = grid.GetTilePos(0, 0);
+    Tile* startTile = grid.GetTilePos(5, 5);
     Enemy enemy(startTile);
 
     while (!WindowShouldClose()) {

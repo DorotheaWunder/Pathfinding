@@ -30,8 +30,8 @@ void MouseClick(Grid& grid, Tile*& goalTile)
         }
         else if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
         {
-            clickedTile->terrainType = WATER;
-            clickedTile->tileColor = terrainColorVal[WATER];
+            clickedTile->terrainType = MOUNTAIN;
+            clickedTile->tileColor = terrainColorVal[MOUNTAIN];
             clickedTile->isWalkable = false;
         }
     }

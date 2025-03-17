@@ -17,7 +17,7 @@ void Grid::InitializeGrid()
         grid[row].resize(width);
         for (int col = 0; col < width; col++)
         {
-            grid[row][col] = Tile(row, col, ICE);
+            grid[row][col] = Tile(row, col, GRASS);
         }
     }
 }

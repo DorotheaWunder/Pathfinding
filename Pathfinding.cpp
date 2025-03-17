@@ -40,6 +40,21 @@ void AddToFrontier(std::queue<Tile*>& frontier, Tile* tile)
     }
 }
 
+struct CompareTileCost
+{
+    bool operator()(Tile* tileA, Tile* tileB)
+    {
+        return tileA->distanceFromGoal > tileB->distanceFromGoal;
+    }
+};
+
+void InitPriorityQueue(std::priority_queue<Tile*, std::vector<Tile*>, CompareTileCost>& frontier, Tile* startTile)
+{
+    frontier.push(startTile);
+    startTile->vectorDirection = nullptr;
+    startTile->wasVisited = true;
+}
+
 void InitDijkstraTiles(Grid& grid, Tile* startTile)
 {
     for (int row = 0; row < grid.height; row++)
@@ -47,7 +62,7 @@ void InitDijkstraTiles(Grid& grid, Tile* startTile)
         for (int col = 0; col < grid.width; col++)
         {
             Tile* currentTile = grid.GetTilePos(row, col);
-            currentTile->distanceFromGoal = std::numeric_limits<float>::infinity();
+            currentTile->distanceFromGoal = std::numeric_limits<int>::max();
             currentTile->wasVisited = false;
             currentTile->vectorDirection = nullptr;
             currentTile->tileColor = ORANGE;
@@ -67,7 +82,7 @@ void MeasureDistance(Tile* tile, Tile* parent)
 void ReconstructPath(Tile* startTile, Tile* goalTile)
 {
     Tile* current = startTile;
-    while (current != goalTile)
+    while (current != nullptr && current != goalTile)
     {
         if (current)
         {
@@ -81,14 +96,6 @@ float CalculateMovementCosts(Tile* currentTile, Tile* nextTile)
 {
     return currentTile->terrainCost + + nextTile->terrainCost;;
 }
-
-struct CompareTileCost
-{
-    bool operator()(Tile* tileA, Tile* tileB)
-    {
-        return tileA->distanceFromGoal > tileB->distanceFromGoal;
-    }
-};
 
 std::vector<Tile*> GetNeighbors(Tile* tile, Grid& grid)
 {
@@ -112,7 +119,6 @@ std::vector<Tile*> GetNeighbors(Tile* tile, Grid& grid)
         Tile* neighbor = grid.GetTilePos(newRow,newCol);
         if (IsValid(neighbor))
         {
-            neighbor->tileColor = SKYBLUE;
             neighbors.push_back(neighbor);
         }
     }
@@ -127,24 +133,25 @@ void CompareNeighborCost(Tile* current, Tile* neighbor, std::priority_queue<Tile
     {
         neighbor->distanceFromGoal =  newCost;
         neighbor->vectorDirection = current;
+        MarkVisited(neighbor);
         frontier.push(neighbor);
     }
 }
 
-std::vector<Tile*> BacktrackPath(Tile* startPos, Tile* goalPos)
-{
-    std::vector<Tile*> path;
-    Tile* current = goalPos;
-
-    while (current != startPos && current != nullptr)
-    {
-        path.push_back(current);
-        current = current->vectorDirection;
-    }
-
-    std::reverse(path.begin(), path.end());
-    return path;;
-}
+// std::vector<Tile*> BacktrackPath(Tile* startPos, Tile* goalPos)
+// {
+//     std::vector<Tile*> path;
+//     Tile* current = goalPos;
+//
+//     while (current != startPos && current != nullptr)
+//     {
+//         path.push_back(current);
+//         current = current->vectorDirection;
+//     }
+//
+//     std::reverse(path.begin(), path.end());
+//     return path;;
+// }
 
 void BFS(Grid& grid, Tile* startTile, Tile* goalTile)
 {
@@ -201,28 +208,36 @@ void Dijkstra(Grid& grid, Tile* startTile, Tile* goalTile)
         return;
 
     InitDijkstraTiles(grid, startTile);
+    std::priority_queue<Tile*, std::vector<Tile*>, CompareTileCost> frontierDijkstra;
+    InitPriorityQueue(frontierDijkstra, startTile);
 
-    std::priority_queue<Tile*, std::vector<Tile*>, CompareTileCost> frontier;
-    frontier.push(startTile);
-
-    while (!frontier.empty())
+    while (!frontierDijkstra.empty())
     {
-        Tile* current = frontier.top();
-        frontier.pop();
+        std::cout << "--> inside while loop." << std::endl;
+        Tile* current = frontierDijkstra.top();
+        frontierDijkstra.pop();
 
         if (current == goalTile)
         {
-            std::cout << "--> Goal tile reached, exiting Dijkstra loop." << std::endl;
+            std::cout << "--> goal tile reached, exiting Dijkstra loop." << std::endl;
             break;
         }
 
         std::vector<Tile*> neighbors = GetNeighbors(current, grid);
         for (Tile* neighbor : neighbors)
         {
-            CompareNeighborCost(current, neighbor, frontier);
+            CompareNeighborCost(current, neighbor, frontierDijkstra);
         }
     }
-        BacktrackPath(startTile, goalTile);
+
+    if (goalTile->distanceFromGoal == std::numeric_limits<int>::max())
+    {
+        std::cout << "--> No path found." << std::endl;
+    }
+    else
+    {
+        ReconstructPath(startTile, goalTile);
+    }
 }
 
 //add movement diagonal
