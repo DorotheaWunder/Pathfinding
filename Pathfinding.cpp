@@ -138,20 +138,20 @@ void CompareNeighborCost(Tile* current, Tile* neighbor, std::priority_queue<Tile
     }
 }
 
-// std::vector<Tile*> BacktrackPath(Tile* startPos, Tile* goalPos)
-// {
-//     std::vector<Tile*> path;
-//     Tile* current = goalPos;
-//
-//     while (current != startPos && current != nullptr)
-//     {
-//         path.push_back(current);
-//         current = current->vectorDirection;
-//     }
-//
-//     std::reverse(path.begin(), path.end());
-//     return path;;
-// }
+std::vector<Tile*> BacktrackPath(Tile* startPos, Tile* goalPos)
+{
+    std::vector<Tile*> path;
+    Tile* current = goalPos;
+
+    while (current != startPos && current != nullptr)
+    {
+        path.push_back(current);
+        current = current->vectorDirection;
+    }
+
+    std::reverse(path.begin(), path.end());
+    return path;
+}
 
 void BFS(Grid& grid, Tile* startTile, Tile* goalTile)
 {
@@ -236,7 +236,11 @@ void Dijkstra(Grid& grid, Tile* startTile, Tile* goalTile)
     }
     else
     {
-        ReconstructPath(startTile, goalTile);
+        std::vector<Tile*> path = BacktrackPath(startTile, goalTile);
+        for (Tile* tile : path)
+        {
+            tile->tileColor = GREEN;
+        }
     }
 }
 
