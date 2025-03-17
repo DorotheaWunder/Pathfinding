@@ -2,13 +2,19 @@
 # include "raylib.h"
 
 extern Color terrainColors[];
+extern float terrainSpeed[];
 
 enum TerrainType
 {
     NONE,
     GRASS,
     WATER,
+    SWAMP,
+    DESERT,
+    MOUNTAIN,
+    ICE,
     GOAL
+    //spawnpoint??
 };
 
 struct TileGridPosition
@@ -31,6 +37,7 @@ public:
     TerrainType terrainType;
     static const int SIZE = 30;
     Color tileColor;
+    float speedModifier;
 
     Tile* vectorDirection;
     int distanceFromGoal;

@@ -11,6 +11,7 @@ public:
     void MoveConstantly();
     void Draw();
     bool HasReachedGoal() const;
+    Tile* GetCurrentTile() const { return currentTile; }
     void SetTile(Tile* newTile);
 
 private:

@@ -1,10 +1,12 @@
-﻿# include "enemy.h"
+﻿#include <cmath>
+
+# include "enemy.h"
 # include "tile.h"
 # include "raylib.h"
 # include <iostream>
 
 Enemy::Enemy(Tile* startTile)
-    : currentTile(startTile), speed(2.0f), isActive(true)
+    : currentTile(startTile), isActive(true)
 {
     if (startTile)
     {
@@ -19,12 +21,24 @@ void Enemy::MoveStep()
 {
     if (!currentTile || !currentTile->vectorDirection) return;
 
-    std::cout << "--> enemy is moving." << std::endl;
-    currentTile = currentTile->vectorDirection;
-    row = currentTile->position.row;
-    col = currentTile->position.col;
-    x = currentTile->position.x;
-    y = currentTile->position.y;
+    Tile* nextTile = currentTile->vectorDirection;
+    float targetX = nextTile->position.x;
+    float targetY = nextTile->position.y;
+
+    float speed = currentTile->speedModifier * GetFrameTime();
+
+    x += (targetX - x) * speed;
+    y += (targetY - y) * speed;
+
+    if (fabs(x - targetX) < 1.0f && fabs(y - targetY) <1.0f)
+    {
+        currentTile =  nextTile;
+        x = targetX;
+        y = targetY;
+    }
+
+
+
 }
 
 void Enemy::MoveConstantly()

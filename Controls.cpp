@@ -42,12 +42,11 @@ void KeyPress(Grid& grid, Tile*& startTile, Tile*& goalTile, Enemy& enemy)
     if (IsKeyPressed(KEY_SPACE))
     {
         grid.ResetTiles();
-        startTile = grid.GetTilePos(0, 0);
+        startTile = enemy.GetCurrentTile();
 
         if (startTile && goalTile)
         {
             BFS(grid, startTile, goalTile);
-            enemy.SetTile(startTile);
         }
     }
 }
