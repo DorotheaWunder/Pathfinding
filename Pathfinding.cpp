@@ -125,7 +125,8 @@ std::vector<Tile*> GetNeighbors(Tile* tile, Grid& grid)
     return neighbors;
 }
 
-void CompareNeighborCost(Tile* current, Tile* neighbor, std::priority_queue<Tile*, std::vector<Tile*>, CompareTileCost>& frontier)
+void CompareNeighborCost(Tile* current, Tile* neighbor, std::priority_queue<Tile*,
+    std::vector<Tile*>, CompareTileCost>& DijkstraFrontier)
 {
     float newCost = current->distanceFromGoal + CalculateMovementCosts(current, neighbor);
 
@@ -134,7 +135,7 @@ void CompareNeighborCost(Tile* current, Tile* neighbor, std::priority_queue<Tile
         neighbor->distanceFromGoal =  newCost;
         neighbor->vectorDirection = current;
         MarkVisited(neighbor);
-        frontier.push(neighbor);
+        DijkstraFrontier.push(neighbor);
     }
 }
 

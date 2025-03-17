@@ -1,13 +1,15 @@
 ﻿# pragma once
 # include "tile.h"
 # include "raylib.h"
+#include <vector>
 
 class Enemy
 {
 public:
-    Enemy(Tile* tile);
+    Enemy(Tile* startTile, Tile* goalTile, bool isDijkstra = false);
 
-    void MoveStep();
+    void MoveBFS();
+    void MoveDijkstra();
     void MoveConstantly();
     void Draw();
     bool HasReachedGoal() const;
@@ -16,8 +18,10 @@ public:
 
 private:
     Tile* currentTile;
+    Tile* goalTile;
     int row, col;
     float x, y;
     float speed;
     bool isActive;
+    bool usingDijkstra;
 };

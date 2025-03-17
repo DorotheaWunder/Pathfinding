@@ -1,12 +1,13 @@
 ﻿#include <cmath>
-
+#include <vector>
 # include "enemy.h"
 # include "tile.h"
 # include "raylib.h"
+# include "pathfinding.h"
 # include <iostream>
 
-Enemy::Enemy(Tile* startTile)
-    : currentTile(startTile), isActive(true)
+Enemy::Enemy(Tile* startTile, Tile* goalTile, bool isDijkstra)
+    : currentTile(startTile), goalTile(goalTile), isActive(true), usingDijkstra(isDijkstra)
 {
     if (startTile)
     {
@@ -17,7 +18,7 @@ Enemy::Enemy(Tile* startTile)
     }
 }
 
-void Enemy::MoveStep()
+void Enemy::MoveBFS()
 {
     if (!currentTile || !currentTile->vectorDirection) return;
 
@@ -38,15 +39,49 @@ void Enemy::MoveStep()
     }
 }
 
+void Enemy::MoveDijkstra()
+{
+    if (!currentTile || !currentTile->vectorDirection) return;
+
+    Tile* nextTile = currentTile->vectorDirection;
+
+    std::vector<Tile*> path = BacktrackPath(currentTile, goalTile);
+
+    if (!path.empty())
+    {
+        nextTile = path.front();
+    }
+
+    float targetX = nextTile->position.x;
+    float targetY = nextTile->position.y;
+
+    float speed = currentTile->speedModifier * GetFrameTime();
+
+    x += (targetX - x) * speed;
+    y += (targetY - y) * speed;
+
+    if (fabs(x - targetX) < 1.0f && fabs(y - targetY) <1.0f)
+    {
+        currentTile =  nextTile;
+        x = targetX;
+        y = targetY;
+    }
+}
+
 void Enemy::MoveConstantly()
 {
     if (!HasReachedGoal())
     {
-        MoveStep();
+        if (usingDijkstra)
+        {
+            MoveDijkstra();
+        }
+        else
+        {
+            MoveBFS();
+        }
     }
 }
-
-
 
 void Enemy::Draw()
 {

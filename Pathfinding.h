@@ -16,7 +16,7 @@ void ReconstructPath(Tile* startTile, Tile* goalTile);
 float CalculateMovementCosts(Tile* currentTile, Tile* nextTile);
 struct CompareTileCost;
 std::vector<Tile*> GetNeighbors(Tile* tile, Grid& grid);
-void CompareNeighborCost(Tile* current, Tile* neighbor, std::priority_queue<Tile*, std::vector<Tile*>, CompareTileCost>& frontier);
+void CompareNeighborCost(Tile* current, Tile* neighbor, std::priority_queue<Tile*, std::vector<Tile*>, CompareTileCost>& DijkstraFrontier);
 std::vector<Tile*> BacktrackPath(Tile* startPos, Tile* goalPos);
 
 
