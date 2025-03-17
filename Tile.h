@@ -1,8 +1,9 @@
 ﻿# pragma once
 # include "raylib.h"
 
-extern Color terrainColors[];
-extern float terrainSpeed[];
+extern Color terrainColorVal[];
+extern float terrainSpeedVal[];
+extern float terrainCostVal[];
 
 enum TerrainType
 {
@@ -38,6 +39,7 @@ public:
     static const int SIZE = 30;
     Color tileColor;
     float speedModifier;
+    float terrainCost;
 
     Tile* vectorDirection;
     int distanceFromGoal;

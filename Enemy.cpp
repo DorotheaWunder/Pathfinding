@@ -36,9 +36,6 @@ void Enemy::MoveStep()
         x = targetX;
         y = targetY;
     }
-
-
-
 }
 
 void Enemy::MoveConstantly()
@@ -48,6 +45,7 @@ void Enemy::MoveConstantly()
         MoveStep();
     }
 }
+
 
 
 void Enemy::Draw()

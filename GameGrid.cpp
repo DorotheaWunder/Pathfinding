@@ -17,7 +17,7 @@ void Grid::InitializeGrid()
         grid[row].resize(width);
         for (int col = 0; col < width; col++)
         {
-            grid[row][col] = Tile(row, col, GRASS);
+            grid[row][col] = Tile(row, col, ICE);
         }
     }
 }
@@ -43,7 +43,7 @@ void Grid::ResetTiles()
             tile.wasVisited = false;
             tile.vectorDirection = nullptr;
             tile.distanceFromGoal = -1;
-            tile.tileColor = terrainColors[tile.terrainType];
+            tile.tileColor = terrainColorVal[tile.terrainType];
         }
     }
 }

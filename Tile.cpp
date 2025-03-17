@@ -6,13 +6,15 @@
 Tile::Tile(int row, int col, TerrainType terrain)
     : position(row, col), terrainType(terrain), wasVisited(false),
     vectorDirection(nullptr), distanceFromGoal(-1),
-    tileColor(terrainColors[terrain]), speedModifier(terrainSpeed[terrain])
+    tileColor(terrainColorVal[terrain]),
+    speedModifier(terrainSpeedVal[terrain]),
+    terrainCost(terrainCostVal[terrain])
 {
     WalkableStatus();
 }
 
 
-Color terrainColors [] =
+Color terrainColorVal [] =
 {
     BLACK,
     DARKGREEN,
@@ -24,7 +26,7 @@ Color terrainColors [] =
     RED
 };
 
-float terrainSpeed [] =
+float terrainSpeedVal [] =
 {
     0.0f,
     15.0f,
@@ -36,7 +38,17 @@ float terrainSpeed [] =
     1.0f,
 };
 
-//movement cost array?
+float terrainCostVal[] =
+{
+    999.0f,
+    0.1f,
+    1.0f,
+    2.0f,
+    1.0f,
+    3.0f,
+    2.0f,
+    0.0f,
+};
 
 TileGridPosition::TileGridPosition(int row, int col)
     : row(row), col(col)

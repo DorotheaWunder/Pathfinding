@@ -21,17 +21,17 @@ void MouseClick(Grid& grid, Tile*& goalTile)
             if (goalTile)
             {
                 goalTile->terrainType = GRASS;
-                goalTile->tileColor = terrainColors[GRASS];
+                goalTile->tileColor = terrainColorVal[GRASS];
             }
 
             clickedTile->terrainType = GOAL;
-            clickedTile->tileColor = terrainColors[GOAL];
+            clickedTile->tileColor = terrainColorVal[GOAL];
             goalTile = clickedTile;
         }
         else if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
         {
             clickedTile->terrainType = WATER;
-            clickedTile->tileColor = terrainColors[WATER];
+            clickedTile->tileColor = terrainColorVal[WATER];
             clickedTile->isWalkable = false;
         }
     }
@@ -46,7 +46,8 @@ void KeyPress(Grid& grid, Tile*& startTile, Tile*& goalTile, Enemy& enemy)
 
         if (startTile && goalTile)
         {
-            BFS(grid, startTile, goalTile);
+            //BFS(grid, startTile, goalTile);
+            Dijkstra(grid, startTile, goalTile);
         }
     }
 }
