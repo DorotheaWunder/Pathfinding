@@ -6,4 +6,4 @@
 
 void ChangeTile(Grid& grid, Tile*& goalTile);
 void StartMovement(Grid& grid, Tile*& startTile, Tile*& goalTile, Enemy& enemy);
-void SpawnEnemy(Tile*& startTile, Tile*& goalTile);
+void GenerateEnemy(Tile*& startTile, Tile*& goalTile, Enemy*& enemy);

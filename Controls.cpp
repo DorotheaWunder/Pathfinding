@@ -60,10 +60,11 @@ void StartMovement(Grid& grid, Tile*& startTile, Tile*& goalTile, Enemy& enemy)
     }
 }
 
-void SpawnEnemy(Tile*& startTile, Tile*& goalTile)
+void GenerateEnemy(Tile*& startTile, Tile*& goalTile, Enemy*& enemy)
 {
     if (IsKeyPressed(KEY_ENTER))
     {
-        Enemy* newEnemy = Enemy::GenerateEnemy(startTile, goalTile);
+        delete enemy;
+        enemy = Enemy::GenerateEnemy(startTile, goalTile);
     }
 }

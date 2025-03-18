@@ -29,7 +29,7 @@ int main()
 
         ChangeTile(grid, goalTile);
         StartMovement(grid, startTile, goalTile, *enemy);
-        SpawnEnemy(startTile, goalTile);
+        GenerateEnemy(startTile, goalTile, enemy);
 
         enemy->MoveConstantly();
 
