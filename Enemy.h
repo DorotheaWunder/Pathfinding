@@ -1,7 +1,9 @@
 ﻿# pragma once
-# include "tile.h"
 # include "raylib.h"
+# include "tile.h"
 #include <vector>
+
+class Tile;
 
 enum MovementType
 {

@@ -6,9 +6,11 @@
 # include <algorithm>
 #include <limits>
 
-bool IsWalkable(Tile* tile)
+bool IsWalkable(Tile* tile, Enemy* enemy)
 {
-    return tile && tile->isWalkable;
+    if (!tile) return false;
+    tile->WalkableStatus(enemy);
+   return tile->isWalkable;
 }
 
 bool WasVisited(Tile* tile)
@@ -16,9 +18,9 @@ bool WasVisited(Tile* tile)
     return tile && tile->wasVisited;
 }
 
-bool IsValid(Tile* tile)
+bool IsValid(Tile* tile, Enemy* enemy)
 {
-    return tile && IsWalkable(tile) && !WasVisited(tile);
+    return tile && IsWalkable(tile, enemy) && !WasVisited(tile);
 }
 
 void MarkVisited(Tile* tile)
@@ -30,9 +32,9 @@ void MarkVisited(Tile* tile)
     }
 }
 
-void AddToFrontier(std::queue<Tile*>& frontier, Tile* tile)
+void AddToFrontier(std::queue<Tile*>& frontier, Tile* tile, Enemy* enemy)
 {
-    if (IsValid(tile))
+    if (IsValid(tile, enemy))
     {
         frontier.push(tile);
         MarkVisited(tile);
@@ -94,10 +96,10 @@ void ReconstructPath(Tile* startTile, Tile* goalTile)
 
 float CalculateMovementCosts(Tile* currentTile, Tile* nextTile)
 {
-    return currentTile->terrainCost + + nextTile->terrainCost;;
+    return currentTile->terrainCost + nextTile->terrainCost;;
 }
 
-std::vector<Tile*> GetNeighbors(Tile* tile, Grid& grid)
+std::vector<Tile*> GetNeighbors(Tile* tile, Grid& grid, Enemy* enemy)
 {
     std::vector<Tile*> neighbors;
     int row = tile->position.row;
@@ -117,7 +119,7 @@ std::vector<Tile*> GetNeighbors(Tile* tile, Grid& grid)
         int newCol = col + direction.second;
 
         Tile* neighbor = grid.GetTilePos(newRow,newCol);
-        if (IsValid(neighbor))
+        if (IsValid(neighbor, enemy))
         {
             neighbors.push_back(neighbor);
         }
@@ -134,8 +136,8 @@ void CompareNeighborCost(Tile* current, Tile* neighbor, std::priority_queue<Tile
     {
         neighbor->distanceFromGoal =  newCost;
         neighbor->vectorDirection = current;
-        MarkVisited(neighbor);
         DijkstraFrontier.push(neighbor);
+        MarkVisited(neighbor);
     }
 }
 
@@ -154,10 +156,10 @@ std::vector<Tile*> BacktrackPath(Tile* startPos, Tile* goalPos)
     return path;
 }
 
-void BFS(Grid& grid, Tile* startTile, Tile* goalTile)
+void BFS(Grid& grid, Tile* startTile, Tile* goalTile, Enemy* enemy)
 {
     std::cout << "--> Algorithm Start " << std::endl;
-    if (!startTile || !goalTile || !IsValid(goalTile))
+    if (!startTile || !goalTile || !IsValid(goalTile, enemy))
         return;
 
     std::queue<Tile*> frontier;
@@ -178,12 +180,12 @@ void BFS(Grid& grid, Tile* startTile, Tile* goalTile)
             break;
         }
 
-        std::vector<Tile*> neighbors = GetNeighbors(current, grid);
+        std::vector<Tile*> neighbors = GetNeighbors(current, grid, enemy);
         for (Tile* neighbor : neighbors)
         {
-            if (IsValid(neighbor))
+            if (IsValid(neighbor, enemy))
             {
-                AddToFrontier(frontier, neighbor);
+                AddToFrontier(frontier, neighbor, enemy);
                 neighbor->vectorDirection = current;
                 neighbor->distanceFromGoal = current->distanceFromGoal + 1;
             }
@@ -199,10 +201,10 @@ void BFS(Grid& grid, Tile* startTile, Tile* goalTile)
     }
 }
 
-void Dijkstra(Grid& grid, Tile* startTile, Tile* goalTile)
+void Dijkstra(Grid& grid, Tile* startTile, Tile* goalTile, Enemy* enemy)
 {
     std::cout << "--> Dijkstra Start " << std::endl;
-    if (!startTile || !goalTile || !IsValid(goalTile))
+    if (!startTile || !goalTile || !IsValid(goalTile, enemy))
         return;
 
     InitDijkstraTiles(grid, startTile);
@@ -224,7 +226,7 @@ void Dijkstra(Grid& grid, Tile* startTile, Tile* goalTile)
             break;
         }
 
-        std::vector<Tile*> neighbors = GetNeighbors(current, grid);
+        std::vector<Tile*> neighbors = GetNeighbors(current, grid, enemy);
         for (Tile* neighbor : neighbors)
         {
             CompareNeighborCost(current, neighbor, frontierDijkstra);

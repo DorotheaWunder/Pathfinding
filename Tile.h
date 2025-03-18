@@ -1,5 +1,8 @@
 ﻿# pragma once
 # include "raylib.h"
+# include "enemy.h"
+
+class Enemy;
 
 extern Color terrainColorVal[];
 extern float terrainSpeedVal[];
@@ -46,8 +49,9 @@ public:
     //--content game object?
 
     void Draw();
-
+    void WalkableStatus(Enemy* enemy);
 private:
-    void WalkableStatus();
+
+    //void WalkableStatus();
 };
 

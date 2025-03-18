@@ -11,7 +11,7 @@ Tile::Tile(int row, int col, TerrainType terrain)
     speedModifier(terrainSpeedVal[terrain]),
     terrainCost(terrainCostVal[terrain])
 {
-    WalkableStatus();
+    isWalkable = (terrainType != WATER && terrainType != MOUNTAIN && terrainType != NONE);
 }
 
 
@@ -58,10 +58,28 @@ TileGridPosition::TileGridPosition(int row, int col)
     y = row * Tile::SIZE;
 }
 
-void Tile::WalkableStatus()
+void Tile::WalkableStatus(Enemy* enemy)
 {
-    isWalkable = (terrainType != WATER && terrainType != NONE);
+    switch (enemy->GetMovementType())
+    {
+    case GROUND:
+        isWalkable = (terrainType != WATER && terrainType != MOUNTAIN && terrainType != NONE);
+        break;
+    case AQUATIC:
+        isWalkable = (terrainType != MOUNTAIN && terrainType != NONE);
+        break;
+    case FLYING:
+        isWalkable = (terrainType != NONE);
+        break;
+    default:
+        isWalkable = false;
+    }
 }
+
+// void Tile::WalkableStatus()
+// {
+//     isWalkable = (terrainType != WATER && terrainType != NONE);
+// }
 
 
 void Tile::Draw()

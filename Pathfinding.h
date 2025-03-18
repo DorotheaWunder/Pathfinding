@@ -4,11 +4,11 @@
 # include <queue>
 
 struct CompareTileCost;
-bool IsWalkable(Tile* tile);
+bool IsWalkable(Tile* tile, Enemy* enemy);
 bool WasVisited(Tile* tile);
 bool IsValid(Tile* tile);
 void MarkVisited(Tile* tile);
-void AddToFrontier(std::queue<Tile*>& frontier, Tile* tile);
+void AddToFrontier(std::queue<Tile*>& frontier, Tile* tile, Enemy* enemy);
 void InitPriorityQueue(std::priority_queue<Tile*, std::vector<Tile*>, CompareTileCost>& frontier, Tile* startTile);
 void InitDijkstraTiles(Grid& grid, Tile* startTile);
 void MeasureDistance(Tile* tile, Tile* parent);
@@ -20,5 +20,5 @@ void CompareNeighborCost(Tile* current, Tile* neighbor, std::priority_queue<Tile
 std::vector<Tile*> BacktrackPath(Tile* startPos, Tile* goalPos);
 
 
-void BFS(Grid& grid, Tile* startTile, Tile* goalTile);
-void Dijkstra(Grid& grid, Tile* startTile, Tile* goalTile);
+void BFS(Grid& grid, Tile* startTile, Tile* goalTile, Enemy* enemy);
+void Dijkstra(Grid& grid, Tile* startTile, Tile* goalTile, Enemy* enemy);

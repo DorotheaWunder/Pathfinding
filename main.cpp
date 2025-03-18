@@ -14,12 +14,21 @@ int main()
     InitWindow(screenWidth, screenHeight, "Pathfinding Grid");
     SetTargetFPS(60);
 
+
     Grid grid(20,20);
     Tile* goalTile = nullptr;
 
-
     Tile* startTile = grid.GetTilePos(5, 5);
     Enemy* enemy = Enemy::GenerateEnemy(startTile, goalTile);
+
+    for (int row = 0; row < grid.height; ++row) {
+        for (int col = 0; col < grid.width; ++col) {
+            Tile* tile = grid.GetTilePos(row, col);
+            if (tile) {
+                tile->WalkableStatus(enemy);  // Update walkability based on the enemy
+            }
+        }
+    }
 
     while (!WindowShouldClose()) {
 

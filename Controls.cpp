@@ -48,11 +48,11 @@ void StartMovement(Grid& grid, Tile*& startTile, Tile*& goalTile, Enemy& enemy)
         {
             if (enemy.usingDijkstra)
             {
-                Dijkstra(grid, startTile, goalTile);
+                Dijkstra(grid, startTile, goalTile, &enemy);
             }
             else
             {
-                BFS(grid, startTile, goalTile);
+                BFS(grid, startTile, goalTile, &enemy);
             }
             std::vector<Tile*> computedPath = BacktrackPath(startTile, goalTile);
             enemy.SetPath(computedPath);
