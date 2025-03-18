@@ -13,8 +13,11 @@ public:
     void MoveConstantly();
     void Draw();
     bool HasReachedGoal() const;
+    bool usingDijkstra;
     Tile* GetCurrentTile() const { return currentTile; }
     void SetTile(Tile* newTile);
+    void SetPath(const std::vector<Tile*>& newPath);
+
 
 private:
     Tile* currentTile;
@@ -23,5 +26,6 @@ private:
     float x, y;
     float speed;
     bool isActive;
-    bool usingDijkstra;
+    std::vector<Tile*> path;
+    size_t pathIndex;
 };

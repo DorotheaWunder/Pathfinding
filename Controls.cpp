@@ -46,8 +46,16 @@ void KeyPress(Grid& grid, Tile*& startTile, Tile*& goalTile, Enemy& enemy)
 
         if (startTile && goalTile)
         {
-            //BFS(grid, startTile, goalTile);
-            Dijkstra(grid, startTile, goalTile);
+            if (enemy.usingDijkstra)
+            {
+                Dijkstra(grid, startTile, goalTile);
+            }
+            else
+            {
+                BFS(grid, startTile, goalTile);
+            }
+            std::vector<Tile*> computedPath = BacktrackPath(startTile, goalTile);
+            enemy.SetPath(computedPath);
         }
     }
 }

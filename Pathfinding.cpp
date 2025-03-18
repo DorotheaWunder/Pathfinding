@@ -164,12 +164,11 @@ void BFS(Grid& grid, Tile* startTile, Tile* goalTile)
     frontier.push(goalTile);
     MarkVisited(goalTile);
     goalTile->distanceFromGoal = 0;
-    goalTile->tileColor = RED;  // Goal tile
-    startTile->tileColor = GRAY; // Start tile
+    goalTile->tileColor = RED;
+    startTile->tileColor = GRAY;
 
     while (!frontier.empty())
     {
-        std::cout << "--> INSIDE while loop " << std::endl;
         Tile* current = frontier.front();
         frontier.pop();
 
@@ -182,10 +181,8 @@ void BFS(Grid& grid, Tile* startTile, Tile* goalTile)
         std::vector<Tile*> neighbors = GetNeighbors(current, grid);
         for (Tile* neighbor : neighbors)
         {
-            std::cout << "--> Neighbor check" << std::endl;
             if (IsValid(neighbor))
             {
-                std::cout << "--> Valid neighbor added to frontier" << std::endl;
                 AddToFrontier(frontier, neighbor);
                 neighbor->vectorDirection = current;
                 neighbor->distanceFromGoal = current->distanceFromGoal + 1;
@@ -212,9 +209,12 @@ void Dijkstra(Grid& grid, Tile* startTile, Tile* goalTile)
     std::priority_queue<Tile*, std::vector<Tile*>, CompareTileCost> frontierDijkstra;
     InitPriorityQueue(frontierDijkstra, startTile);
 
+
+
     while (!frontierDijkstra.empty())
     {
-        std::cout << "--> inside while loop." << std::endl;
+
+
         Tile* current = frontierDijkstra.top();
         frontierDijkstra.pop();
 
@@ -241,6 +241,9 @@ void Dijkstra(Grid& grid, Tile* startTile, Tile* goalTile)
         for (Tile* tile : path)
         {
             tile->tileColor = GREEN;
+            goalTile->tileColor = RED;
+            startTile->tileColor = GRAY;
+            std::cout << "Tile at (" << tile->position.row << ", " << tile->position.col << ") is in path." << std::endl;
         }
     }
 }
