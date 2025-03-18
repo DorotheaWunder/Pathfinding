@@ -6,8 +6,11 @@
 # include "pathfinding.h"
 # include <iostream>
 
-Enemy::Enemy(Tile* startTile, Tile* goalTile, bool isDijkstra)
-    : currentTile(startTile), goalTile(goalTile), isActive(true),
+Enemy::Enemy(Tile* startTile, Tile* goalTile, EnemySize size,
+    MovementType movement, MovementDirection direction,
+    bool isDijkstra)
+    : currentTile(startTile), goalTile(goalTile), isActive(true), enemySize(size),
+    movementType(movement), movementDirection(direction), enemySpeed(1.0),
     usingDijkstra(isDijkstra), pathIndex(0)
 {
     if (startTile)
@@ -17,6 +20,68 @@ Enemy::Enemy(Tile* startTile, Tile* goalTile, bool isDijkstra)
         x = startTile->position.x;
         y =  startTile->position.y;
     }
+}
+
+float calculateEnemySpeed(EnemySize size)
+{
+    float baseSpeed = 1.0f;
+    switch (size)
+    {
+        case SMALL: baseSpeed = 2.0f; break;
+        case MEDIUM: baseSpeed = 1.0f; break;
+        case LARGE: baseSpeed = 0.5f; break;
+    }
+    return baseSpeed;
+}
+
+Enemy* Enemy::GenerateEnemy(Tile* startTile, Tile* goalTile)
+{
+    int sizeIndex = rand() % 3;
+    EnemySize size = static_cast<EnemySize>(sizeIndex);
+
+    int moveIndex = rand() % 3;
+    MovementType movementType = static_cast<MovementType>(moveIndex);
+
+    Enemy* newEnemy = new Enemy(startTile, goalTile, size, movementType, CROSS, false);
+
+    return newEnemy;
+}
+
+
+void Enemy::Draw()
+{
+    if (!isActive) return;
+
+    Color enemyColor;
+    switch (movementType)
+    {
+    case GROUND:
+        enemyColor = RED;
+        break;
+    case AQUATIC:
+        enemyColor = DARKBLUE;
+        break;
+    case FLYING:
+        enemyColor = BLACK;
+        break;
+    }
+
+    float sizeMultiplier;
+    switch (enemySize)
+    {
+    case SMALL:
+        sizeMultiplier = 0.5f;
+        break;
+    case MEDIUM:
+        sizeMultiplier = 1.0f;
+        break;
+    case LARGE:
+        sizeMultiplier = 2.0f;
+        break;
+    }
+    float enemyRadius = 10 * sizeMultiplier;
+    DrawCircle(x + Tile::SIZE / 2, y + Tile::SIZE / 2, enemyRadius, enemyColor);
+    DrawCircleLines(x + Tile::SIZE / 2, y + Tile::SIZE / 2,enemyRadius, WHITE);
 }
 
 void Enemy::MoveBFS()
@@ -100,14 +165,6 @@ void Enemy::MoveConstantly()
             MoveBFS();
         }
     }
-}
-
-void Enemy::Draw()
-{
-    if (!isActive) return;
-
-    DrawCircle(x + Tile::SIZE / 2, y + Tile::SIZE / 2,10, RED);
-    DrawCircleLines(x + Tile::SIZE / 2, y + Tile::SIZE / 2,10, WHITE);
 }
 
 bool Enemy::HasReachedGoal() const

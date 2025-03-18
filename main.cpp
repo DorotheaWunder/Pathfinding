@@ -18,7 +18,7 @@ int main()
     Tile* goalTile = nullptr;
 
     Tile* startTile = grid.GetTilePos(5, 5);
-    Enemy enemy(startTile, goalTile, false);
+    Enemy* enemy = Enemy::GenerateEnemy(startTile, goalTile);
 
     while (!WindowShouldClose()) {
 
@@ -27,12 +27,12 @@ int main()
 
 
         MouseClick(grid, goalTile);
-        KeyPress(grid, startTile, goalTile, enemy);
+        KeyPress(grid, startTile, goalTile, *enemy);
 
-        enemy.MoveConstantly();
+        enemy->MoveConstantly();
 
         grid.DrawGrid();
-        enemy.Draw();
+        enemy->Draw();
 
         EndDrawing();
     }
