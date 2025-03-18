@@ -17,6 +17,7 @@ int main()
     Grid grid(20,20);
     Tile* goalTile = nullptr;
 
+
     Tile* startTile = grid.GetTilePos(5, 5);
     Enemy* enemy = Enemy::GenerateEnemy(startTile, goalTile);
 
@@ -26,8 +27,9 @@ int main()
         ClearBackground(BLACK);
 
 
-        MouseClick(grid, goalTile);
-        KeyPress(grid, startTile, goalTile, *enemy);
+        ChangeTile(grid, goalTile);
+        StartMovement(grid, startTile, goalTile, *enemy);
+        SpawnEnemy(startTile, goalTile);
 
         enemy->MoveConstantly();
 

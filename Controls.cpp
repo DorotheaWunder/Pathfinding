@@ -5,7 +5,7 @@
 #include "raylib.h"
 
 
-void MouseClick(Grid& grid, Tile*& goalTile)
+void ChangeTile(Grid& grid, Tile*& goalTile)
 {
     Vector2 mousePos = GetMousePosition();
     int row = mousePos.y / Tile::SIZE;
@@ -37,7 +37,7 @@ void MouseClick(Grid& grid, Tile*& goalTile)
     }
 }
 
-void KeyPress(Grid& grid, Tile*& startTile, Tile*& goalTile, Enemy& enemy)
+void StartMovement(Grid& grid, Tile*& startTile, Tile*& goalTile, Enemy& enemy)
 {
     if (IsKeyPressed(KEY_SPACE))
     {
@@ -57,5 +57,13 @@ void KeyPress(Grid& grid, Tile*& startTile, Tile*& goalTile, Enemy& enemy)
             std::vector<Tile*> computedPath = BacktrackPath(startTile, goalTile);
             enemy.SetPath(computedPath);
         }
+    }
+}
+
+void SpawnEnemy(Tile*& startTile, Tile*& goalTile)
+{
+    if (IsKeyPressed(KEY_ENTER))
+    {
+        Enemy* newEnemy = Enemy::GenerateEnemy(startTile, goalTile);
     }
 }

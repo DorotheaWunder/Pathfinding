@@ -4,5 +4,6 @@
 #include "Pathfinding.h"
 #include "raylib.h"
 
-void MouseClick(Grid& grid, Tile*& goalTile);
-void KeyPress(Grid& grid, Tile*& startTile, Tile*& goalTile, Enemy& enemy);
+void ChangeTile(Grid& grid, Tile*& goalTile);
+void StartMovement(Grid& grid, Tile*& startTile, Tile*& goalTile, Enemy& enemy);
+void SpawnEnemy(Tile*& startTile, Tile*& goalTile);

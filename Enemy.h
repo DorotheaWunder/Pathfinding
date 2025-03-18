@@ -42,7 +42,7 @@ public:
     void SetPath(const std::vector<Tile*>& newPath);
     Tile* GetCurrentTile() const { return currentTile; }
 
-    float calculateEnemySpeed(MovementType movement, EnemySize size);
+    static float calculateEnemySpeed(EnemySize size);
     MovementType GetMovementType() const {return movementType;}
     void Draw();
 

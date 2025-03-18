@@ -9,8 +9,8 @@
 Enemy::Enemy(Tile* startTile, Tile* goalTile, EnemySize size,
     MovementType movement, MovementDirection direction,
     bool isDijkstra)
-    : currentTile(startTile), goalTile(goalTile), isActive(true), enemySize(size),
-    movementType(movement), movementDirection(direction), enemySpeed(1.0),
+    : currentTile(startTile), goalTile(goalTile), isActive(true),
+    enemySize(size), movementType(movement), movementDirection(direction),
     usingDijkstra(isDijkstra), pathIndex(0)
 {
     if (startTile)
@@ -20,18 +20,18 @@ Enemy::Enemy(Tile* startTile, Tile* goalTile, EnemySize size,
         x = startTile->position.x;
         y =  startTile->position.y;
     }
+    enemySpeed = Enemy::calculateEnemySpeed(size);
 }
 
-float calculateEnemySpeed(EnemySize size)
+float Enemy::calculateEnemySpeed(EnemySize size)
 {
-    float baseSpeed = 1.0f;
     switch (size)
     {
-        case SMALL: baseSpeed = 2.0f; break;
-        case MEDIUM: baseSpeed = 1.0f; break;
-        case LARGE: baseSpeed = 0.5f; break;
+        case SMALL: return 2.0f; break;
+        case MEDIUM: return 1.0f; break;
+        case LARGE: return 0.5f; break;
+        default: return 1.0f;
     }
-    return baseSpeed;
 }
 
 Enemy* Enemy::GenerateEnemy(Tile* startTile, Tile* goalTile)
@@ -92,10 +92,10 @@ void Enemy::MoveBFS()
     float targetX = nextTile->position.x;
     float targetY = nextTile->position.y;
 
-    float speed = currentTile->speedModifier * GetFrameTime();
+    float calculatedSpeed = enemySpeed * currentTile->speedModifier * GetFrameTime();
 
-    x += (targetX - x) * speed;
-    y += (targetY - y) * speed;
+    x += (targetX - x) * calculatedSpeed;
+    y += (targetY - y) * calculatedSpeed;
 
     if (fabs(x - targetX) < 1.0f && fabs(y - targetY) <1.0f)
     {
