@@ -30,8 +30,8 @@ void ChangeTile(Grid& grid, Tile*& goalTile)
         }
         else if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
         {
-            clickedTile->terrainType = MOUNTAIN;
-            clickedTile->tileColor = terrainColorVal[MOUNTAIN];
+            clickedTile->terrainType = SPAWN;
+            clickedTile->tileColor = terrainColorVal[SPAWN];
             clickedTile->isWalkable = false;
         }
     }

@@ -3,6 +3,7 @@
 # include "enemy.h"
 
 
+int Tile::SIZE = 10;
 
 Tile::Tile(int row, int col, TerrainType terrain)
     : position(row, col), terrainType(terrain), wasVisited(false),
@@ -24,7 +25,8 @@ Color terrainColorVal [] =
     BEIGE,
     DARKGRAY,
     SKYBLUE,
-    RED
+    RED,
+    WHITE
 };
 
 float terrainSpeedVal [] =
@@ -37,6 +39,7 @@ float terrainSpeedVal [] =
     3.0f,
     25.0f,
     1.0f,
+    1.0f
 };
 
 float terrainCostVal[] =
@@ -48,7 +51,8 @@ float terrainCostVal[] =
     1.0f,
     3.0f,
     2.0f,
-    0.0f,
+    0.1f,
+    0.1f
 };
 
 TileGridPosition::TileGridPosition(int row, int col)
@@ -75,12 +79,6 @@ void Tile::WalkableStatus(Enemy* enemy)
         isWalkable = false;
     }
 }
-
-// void Tile::WalkableStatus()
-// {
-//     isWalkable = (terrainType != WATER && terrainType != NONE);
-// }
-
 
 void Tile::Draw()
 {

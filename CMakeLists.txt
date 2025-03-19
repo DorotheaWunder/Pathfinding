@@ -39,7 +39,9 @@ add_executable(TowerDefRedone main.cpp
         Enemy.h
         Enemy.cpp
         Controls.h
-        Controls.cpp)
+        Controls.cpp
+        Spawning.h
+        Spawning.cpp)
 
 # set the include directory
 target_include_directories(TowerDefRedone PRIVATE ${raylib_INCLUDE_DIRS})

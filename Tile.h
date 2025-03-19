@@ -17,8 +17,8 @@ enum TerrainType
     DESERT,
     MOUNTAIN,
     ICE,
-    GOAL
-    //spawnpoint??
+    GOAL,
+    SPAWN
 };
 
 struct TileGridPosition
@@ -39,19 +39,15 @@ public:
     bool isWalkable;
     bool wasVisited;
     TerrainType terrainType;
-    static const int SIZE = 30;
+    static int SIZE;
     Color tileColor;
     float speedModifier;
     float terrainCost;
 
     Tile* vectorDirection;
     int distanceFromGoal;
-    //--content game object?
 
     void Draw();
     void WalkableStatus(Enemy* enemy);
-private:
-
-    //void WalkableStatus();
 };
 
