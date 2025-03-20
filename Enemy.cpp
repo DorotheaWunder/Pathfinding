@@ -127,31 +127,6 @@ void Enemy::MoveDijkstra()
     }
 }
 
-// void Enemy::MoveDijkstra()
-// {
-//     std::cout << "--> the enemy is moving" << std::endl;
-//     if (!currentTile || !goalTile) return;
-//
-//     std::vector<Tile*> path = BacktrackPath(currentTile, goalTile);
-//     if (path.empty()) return;
-//     Tile* nextTile = path[0];
-//
-//     float targetX = nextTile->position.x;
-//     float targetY = nextTile->position.y;
-//
-//     float speed = currentTile->speedModifier * GetFrameTime();
-//
-//     x += (targetX - x) * speed;
-//     y += (targetY - y) * speed;
-//
-//     if (fabs(x - targetX) < 1.0f && fabs(y - targetY) <1.0f)
-//     {
-//         currentTile =  nextTile;
-//         x = targetX;
-//         y = targetY;
-//     }
-// }
-
 void Enemy::MoveConstantly()
 {
     if (!HasReachedGoal())
@@ -162,7 +137,8 @@ void Enemy::MoveConstantly()
         }
         else
         {
-            MoveBFS();
+            MoveDijkstra();
+            //MoveBFS();
         }
     }
 }

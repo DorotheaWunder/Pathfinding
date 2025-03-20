@@ -45,8 +45,8 @@ float terrainSpeedVal [] =
 float terrainCostVal[] =
 {
     999.0f,
-    0.1f,
     1.0f,
+    1.1f,
     2.0f,
     1.0f,
     3.0f,

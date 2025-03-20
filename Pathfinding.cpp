@@ -158,7 +158,7 @@ std::vector<Tile*> BacktrackPath(Tile* startPos, Tile* goalPos)
 
 void BFS(Grid& grid, Tile* startTile, Tile* goalTile, Enemy* enemy)
 {
-    std::cout << "--> Algorithm Start " << std::endl;
+    std::cout << "--> BFS Algorithm Start " << std::endl;
     if (!startTile || !goalTile || !IsValid(goalTile, enemy))
         return;
 
@@ -242,7 +242,7 @@ void Dijkstra(Grid& grid, Tile* startTile, Tile* goalTile, Enemy* enemy)
         std::vector<Tile*> path = BacktrackPath(startTile, goalTile);
         for (Tile* tile : path)
         {
-            tile->tileColor = GREEN;
+            tile->tileColor = WHITE;
             goalTile->tileColor = RED;
             startTile->tileColor = GRAY;
             std::cout << "Tile at (" << tile->position.row << ", " << tile->position.col << ") is in path." << std::endl;
