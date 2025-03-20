@@ -65,7 +65,6 @@ void Grid::SetTileSize(int size)
     }
 }
 
-
 void Grid::DrawGrid()
 {
     for (int row = 0; row < height; row++)
@@ -91,6 +90,7 @@ void Grid::ResetTiles()
         }
     }
 }
+
 
 
 Tile* Grid::GetTilePos(int row, int col)

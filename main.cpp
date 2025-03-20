@@ -40,6 +40,7 @@ int main()
         BeginDrawing();
         ClearBackground(BLACK);
 
+        GenerateMap(grid);
 
         ChangeTile(grid, goalTile);
         StartMovement(grid, startTile, goalTile, *enemy);
