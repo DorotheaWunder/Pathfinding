@@ -27,9 +27,9 @@ float Enemy::calculateEnemySpeed(EnemySize size)
 {
     switch (size)
     {
-        case SMALL: return 2.0f; break;
-        case MEDIUM: return 1.0f; break;
-        case LARGE: return 0.5f; break;
+        case SMALL: return 1.0f; break;
+        case MEDIUM: return 0.7f; break;
+        case LARGE: return 0.3f; break;
         default: return 1.0f;
     }
 }

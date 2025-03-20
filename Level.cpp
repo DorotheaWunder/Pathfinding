@@ -6,12 +6,12 @@
 
 std::vector<std::pair<TerrainType, float>> terrainDistribution
 {
-    {GRASS, 30.0f},
-    {WATER, 25.0f},
-    {SWAMP, 10.0f},
-    {DESERT, 10.0f},
+    {GRASS, 25.0f},
+    {WATER, 20.0f},
+    {SWAMP, 13.0f},
+    {DESERT, 12.0f},
     {MOUNTAIN, 15.0f},
-    {ICE, 10.0f}
+    {ICE, 13.0f}
 };
 
 std::vector<Tile*> GetAllTiles(Grid& grid)
@@ -111,8 +111,11 @@ void AssignTerrain(std::vector<Tile*>& anchors, const std::vector<std::pair<Terr
         anchors[1]->tileColor = terrainColorVal[SPAWN];
     }
 
-    const int minDistance = 2;
-    const int maxDistance = 6;
+    const int minAnchorDistance = 2;
+    const int maxAnchorDistance = 8;
+
+    const int spreadMinDistance = 2;
+    const int spreadMaxDistance = 6;
 
     for (size_t i = 2; i < anchors.size(); i++)
     {
@@ -120,11 +123,11 @@ void AssignTerrain(std::vector<Tile*>& anchors, const std::vector<std::pair<Terr
         anchors[i]->terrainType = terrain;
         anchors[i]->tileColor = terrainColorVal[terrain];
 
-        TerrainBFS(&grid, anchors[i], terrain, minDistance, maxDistance);
+        TerrainBFS(&grid, anchors[i], terrain, spreadMinDistance, spreadMaxDistance);
     }
 }
 
-void TerrainBFS(Grid* grid, Tile* startTile, TerrainType terrain, int minDistance, int maxDistance)
+void TerrainBFS(Grid* grid, Tile* startTile, TerrainType terrain, int spreadMinDistance, int spreadMaxDistance)
 {
     if (!startTile || !grid) return;
 
@@ -136,8 +139,8 @@ void TerrainBFS(Grid* grid, Tile* startTile, TerrainType terrain, int minDistanc
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    std::uniform_int_distribution<int> distX(minDistance, maxDistance);
-    std::uniform_int_distribution<int> distY(minDistance, maxDistance);
+    std::uniform_int_distribution<int> distX(spreadMinDistance, spreadMaxDistance);
+    std::uniform_int_distribution<int> distY(spreadMinDistance, spreadMaxDistance);
 
     while (!tileQueue.empty())
     {
@@ -145,7 +148,7 @@ void TerrainBFS(Grid* grid, Tile* startTile, TerrainType terrain, int minDistanc
         int currentDistance = tileQueue.front().second;
         tileQueue.pop();
 
-        if (currentDistance >= maxDistance) continue;
+        if (currentDistance >= spreadMaxDistance) continue;
 
         int maxDistX = distX(gen);
         int maxDistY = distY(gen);
@@ -166,6 +169,7 @@ void TerrainBFS(Grid* grid, Tile* startTile, TerrainType terrain, int minDistanc
                 {
                     neighbor->terrainType = terrain;
                     neighbor->tileColor = terrainColorVal[terrain];
+                    neighbor->speedModifier = terrainSpeedVal[terrain];
 
                     tileQueue.push({neighbor, currentDistance + 1});
                 }

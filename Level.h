@@ -13,4 +13,4 @@ std::vector<Tile*> SelectAnchorTiles(Grid& grid, int minDistance, int maxDistanc
 TerrainType PickRandomTerrain(const std::vector<std::pair<TerrainType, float>>& percentage);
 void AssignTerrain(std::vector<Tile*>& anchors, const std::vector<std::pair<TerrainType, float>>& percentage, Grid& grid);
 
-void TerrainBFS(Grid* grid, Tile* startTile, TerrainType terrain, int minDistance, int maxDistance);
+void TerrainBFS(Grid* grid, Tile* startTile, TerrainType terrain, int spreadMinDistance, int spreadMaxDistance);
