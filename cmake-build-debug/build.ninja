@@ -113,6 +113,14 @@ build CMakeFiles/TowerDefRedone.dir/Level.cpp.obj: CXX_COMPILER__TowerDefRedone_
   OBJECT_DIR = CMakeFiles\TowerDefRedone.dir
   OBJECT_FILE_DIR = CMakeFiles\TowerDefRedone.dir
 
+build CMakeFiles/TowerDefRedone.dir/UI.cpp.obj: CXX_COMPILER__TowerDefRedone_unscanned_Debug C$:/CLionProjects/TowerDefRedone/UI.cpp || cmake_object_order_depends_target_TowerDefRedone
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
+  DEP_FILE = CMakeFiles\TowerDefRedone.dir\UI.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -IC:/CLionProjects/TowerDefRedone/cmake-build-debug/_deps/raylib-src/src -IC:/CLionProjects/TowerDefRedone/cmake-build-debug/_deps/raylib-src/src/external/glfw/include
+  OBJECT_DIR = CMakeFiles\TowerDefRedone.dir
+  OBJECT_FILE_DIR = CMakeFiles\TowerDefRedone.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target TowerDefRedone
@@ -121,7 +129,7 @@ build CMakeFiles/TowerDefRedone.dir/Level.cpp.obj: CXX_COMPILER__TowerDefRedone_
 #############################################
 # Link the executable TowerDefRedone.exe
 
-build TowerDefRedone.exe: CXX_EXECUTABLE_LINKER__TowerDefRedone_Debug CMakeFiles/TowerDefRedone.dir/main.cpp.obj CMakeFiles/TowerDefRedone.dir/Tile.cpp.obj CMakeFiles/TowerDefRedone.dir/GameGrid.cpp.obj CMakeFiles/TowerDefRedone.dir/Pathfinding.cpp.obj CMakeFiles/TowerDefRedone.dir/Enemy.cpp.obj CMakeFiles/TowerDefRedone.dir/Controls.cpp.obj CMakeFiles/TowerDefRedone.dir/Spawning.cpp.obj CMakeFiles/TowerDefRedone.dir/Level.cpp.obj | _deps/raylib-build/raylib/libraylib.a || _deps/raylib-build/raylib/external/glfw/src/glfw _deps/raylib-build/raylib/libraylib.a
+build TowerDefRedone.exe: CXX_EXECUTABLE_LINKER__TowerDefRedone_Debug CMakeFiles/TowerDefRedone.dir/main.cpp.obj CMakeFiles/TowerDefRedone.dir/Tile.cpp.obj CMakeFiles/TowerDefRedone.dir/GameGrid.cpp.obj CMakeFiles/TowerDefRedone.dir/Pathfinding.cpp.obj CMakeFiles/TowerDefRedone.dir/Enemy.cpp.obj CMakeFiles/TowerDefRedone.dir/Controls.cpp.obj CMakeFiles/TowerDefRedone.dir/Spawning.cpp.obj CMakeFiles/TowerDefRedone.dir/Level.cpp.obj CMakeFiles/TowerDefRedone.dir/UI.cpp.obj | _deps/raylib-build/raylib/libraylib.a || _deps/raylib-build/raylib/external/glfw/src/glfw _deps/raylib-build/raylib/libraylib.a
   FLAGS = -g
   LINK_LIBRARIES = _deps/raylib-build/raylib/libraylib.a  -lopengl32  -lglu32  -lwinmm  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\TowerDefRedone.dir

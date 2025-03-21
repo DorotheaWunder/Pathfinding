@@ -27,8 +27,8 @@ float Enemy::calculateEnemySpeed(EnemySize size)
 {
     switch (size)
     {
-        case SMALL: return 1.0f; break;
-        case MEDIUM: return 0.7f; break;
+        case SMALL: return 0.7f; break;
+        case MEDIUM: return 0.5f; break;
         case LARGE: return 0.3f; break;
         default: return 1.0f;
     }
@@ -137,8 +137,7 @@ void Enemy::MoveConstantly()
         }
         else
         {
-            MoveDijkstra();
-            //MoveBFS();
+            MoveBFS();
         }
     }
 }

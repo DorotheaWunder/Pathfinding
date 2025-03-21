@@ -44,6 +44,8 @@ add_executable(TowerDefRedone main.cpp
         Spawning.cpp
         Level.h
         Level.cpp
+        UI.h
+        UI.cpp
 )
 
 # set the include directory

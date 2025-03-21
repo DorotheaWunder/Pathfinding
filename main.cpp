@@ -5,11 +5,12 @@
 #include "Controls.h"
 #include "Enemy.h"
 #include "spawning.h"
+#include "ui.h"
 
 
 int main()
 {
-    const int screenWidth = 800;
+    const int screenWidth = 1500;
     const int screenHeight = 800;
     const int tileSize = 5;
     InitWindow(screenWidth, screenHeight, "Pathfinding Grid");
@@ -17,40 +18,24 @@ int main()
 
 
     Grid grid(screenWidth,screenHeight, tileSize);
-    SpawnManager spawner(grid, 5, 1.0f);//not working
-
-
-
     Tile* goalTile = nullptr;
-
-    Tile* startTile = grid.GetTilePos(5, 5);
+    Tile* startTile = grid.GetTilePos(15, 15);
     Enemy* enemy = Enemy::GenerateEnemy(startTile, goalTile);
-
-    for (int row = 0; row < grid.height; ++row) {
-        for (int col = 0; col < grid.width; ++col) {
-            Tile* tile = grid.GetTilePos(row, col);
-            if (tile) {
-                tile->WalkableStatus(enemy);
-            }
-        }
-    }
 
     while (!WindowShouldClose()) {
 
         BeginDrawing();
         ClearBackground(BLACK);
 
-        GenerateMap(grid);
+        grid.DrawGrid();
+
+        HandleButtons(grid, startTile, goalTile, enemy);
+        DrawUI();
 
         ChangeTile(grid, goalTile);
-        StartMovement(grid, startTile, goalTile, *enemy);
-        GenerateEnemy(startTile, goalTile, enemy);
+        StartMovement(grid, startTile, goalTile, *enemy);//press SPACE
 
         enemy->MoveConstantly();
-
-        spawner.UpdateEnemy();
-
-        grid.DrawGrid();
         enemy->Draw();
 
         EndDrawing();
