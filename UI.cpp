@@ -6,10 +6,10 @@
 #include "enemy.h"
 #include "controls.h"
 
-Button generateTerrain = {{50, 10, 230, 40}, " Generate Terrain", DARKGRAY};
-Button generateEnemy = {{450, 10, 230, 40}, "   Create Enemy", DARKGRAY};
-Button startPath = {{850, 10, 230, 40}, " Start Pathfinding", DARKGRAY};
-Button toggleDijkstra = {{1250, 10, 230, 40}, "   Switch Algorithm", DARKGRAY};
+Button generateTerrain = {{50, 750, 230, 40}, " Generate Terrain", DARKGRAY};
+Button generateEnemy = {{450, 750, 230, 40}, "   Create Enemy", DARKGRAY};
+Button startPath = {{850, 750, 230, 40}, " Start Pathfinding", DARKGRAY};
+Button toggleDijkstra = {{1250, 750, 230, 40}, "   Switch Algorithm", DARKGRAY};
 
 void HandleButtons(Grid& grid, Tile*& startTile, Tile*& goalTile, Enemy*& enemy)
 {
@@ -63,7 +63,6 @@ void HandleButtons(Grid& grid, Tile*& startTile, Tile*& goalTile, Enemy*& enemy)
 
 void DrawUI()
 {
-    DrawRectangle(0,0, 1500,60, BLACK);
     generateTerrain.Draw();
     generateEnemy.Draw();
     startPath.Draw();

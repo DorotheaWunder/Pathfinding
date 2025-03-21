@@ -17,7 +17,7 @@ int main()
     SetTargetFPS(60);
 
 
-    Grid grid(screenWidth,screenHeight, tileSize);
+    Grid grid(screenWidth,screenHeight - 430, tileSize);
     Tile* goalTile = nullptr;
     Tile* startTile = grid.GetTilePos(15, 15);
     Enemy* enemy = Enemy::GenerateEnemy(startTile, goalTile);
@@ -34,6 +34,8 @@ int main()
 
         ChangeTile(grid, goalTile);
         StartMovement(grid, startTile, goalTile, *enemy);//press SPACE
+        GenerateMap(grid); //press M to generate the map
+        GenerateEnemy(startTile, goalTile, enemy); //press ENTER to reshuffle enemy
 
         enemy->MoveConstantly();
         enemy->Draw();

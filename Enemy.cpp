@@ -113,7 +113,7 @@ void Enemy::MoveDijkstra()
     float targetX = nextTile->position.x;
     float targetY = nextTile->position.y;
 
-    float speed = currentTile->speedModifier * GetFrameTime();
+    float speed = enemySpeed * currentTile->speedModifier * GetFrameTime();
 
     x += (targetX - x) * speed;
     y += (targetY - y) * speed;
