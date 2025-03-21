@@ -144,7 +144,7 @@ void Enemy::MoveConstantly()
 
 bool Enemy::HasReachedGoal() const
 {
-    return (currentTile && currentTile->distanceFromGoal == 0);
+    return (currentTile == goalTile);
 }
 
 void Enemy::SetTile(Tile* newTile)

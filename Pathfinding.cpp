@@ -28,7 +28,6 @@ void MarkVisited(Tile* tile)
     if (tile)
     {
         tile->wasVisited = true;
-        //tile->tileColor = (Color){ 253, 249, 0, 10 };
     }
 }
 
@@ -38,7 +37,6 @@ void AddToFrontier(std::queue<Tile*>& frontier, Tile* tile, Enemy* enemy)
     {
         frontier.push(tile);
         MarkVisited(tile);
-        //tile->tileColor = ORANGE;
     }
 }
 
@@ -67,7 +65,6 @@ void InitDijkstraTiles(Grid& grid, Tile* startTile)
             currentTile->distanceFromGoal = std::numeric_limits<int>::max();
             currentTile->wasVisited = false;
             currentTile->vectorDirection = nullptr;
-            //currentTile->tileColor = ORANGE;
         }
     }
     startTile->distanceFromGoal = 0;
