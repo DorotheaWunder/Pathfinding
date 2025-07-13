@@ -1,6 +1,6 @@
 # Pathfinding Project
 
-<img width="502" height="300" alt="A large Ground type enemy is moving towards the goal" src="https://github.com/user-attachments/assets/2e308e10-44bc-48b7-88a6-bcdfc4a728ac" />
+<img width="602" height="400" alt="A large Ground type enemy is moving towards the goal" src="https://github.com/user-attachments/assets/2e308e10-44bc-48b7-88a6-bcdfc4a728ac" />
 
 A pathfinding simulation that moves an enemy through a generated tilemap with different types of terrain. 
 It uses either the *BFS algorithm* or *Dijkstra's algorithm* to move the enemy towards the player-determined goal.
